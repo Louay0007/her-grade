@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
+<title>HER-GRADE Phase 1</title><style>body{font-family:system-ui;max-width:720px;margin:24px auto;padding:0 16px}nav a{margin-right:12px}.card{border:1px solid #ccc;border-radius:12px;padding:16px;margin:12px 0}.mut{color:#555;font-size:13px}</style></head><body>
+<h1>HER-GRADE — rosemary pilot</h1>
+<p><b>Track 2</b> supply-chain + market access (support Track 1 sorting, Track 3 dust/safety). Visual screening only — not food-safety certified.</p>
+<nav><a href="/producer">Producer</a><a href="/station">Station</a><a href="/buyer">Buyer</a><a href="/health">Health</a></nav>
+<div class=card>Batches: <b>{{nb}}</b> · Requests: <b>{{nr}}</b> · Orders: <b>{{no}}</b></div>
+<div class=card><b>8-step jury demo</b><ol>
+<li>Producer creates rosemary batch (harvest date, locality).</li>
+<li>Feed portions → accepted / verify divert (Mode B).</li>
+<li>Mode A: uncertain → red alert + stop, operator resumes.</li>
+<li>Finish batch → QR → phone scans <code>/b/&lt;id&gt;</code>.</li>
+<li>Buyer requests 20kg grade.</li>
+<li>System proposes 11kg + 9kg collective, scores explained.</li>
+<li>Each producer accepts, buyer confirms. Grades never merged silently.</li>
+<li>Price calculator with below-cost warning (illustrative).</li></ol></div>
+<p class=mut>Offline-first: SQLite WAL · segno QR · pyserial 115200 JSONL · MobileNetV3-Small ONNX CPU.</p>
+</body></html>

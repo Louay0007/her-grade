@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
+<title>Buyer — HER-GRADE</title><style>body{font-family:system-ui;max-width:820px;margin:24px auto;padding:0 16px}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:6px;font-size:13px}</style></head><body>
+<h2>Buyer — rosemary requests + collective orders</h2><p><a href="/">Home</a></p>
+<h3>New request (rosemary locked)</h3>
+<form onsubmit="return mkReq(this)">Qty grams: <input name=qty_need_g type=number value=20000 required>
+Grade: <select name=grade_required><option>premium</option><option>standard</option></select>
+From: <input name=harvest_from type=date> To: <input name=harvest_to type=date>
+Max DT/kg: <input name=max_price type=number step=0.1 value=14>
+Place: <input name=delivery_place value="Tunis"> Deadline: <input name=deadline type=date>
+<button>Request</button></form><pre id=rq></pre>
+<h3>Requests</h3><table><tr><th>ID</th><th>Qty g</th><th>Grade</th><th>Status</th><th>Matches</th></tr>
+{% for r in reqs %}<tr><td>{{r.id}}</td><td>{{r.qty_need_g}}</td><td>{{r.grade_required}}</td><td>{{r.status}}</td><td><button onclick="matches('{{r.id}}')">matches</button></td></tr>{% endfor %}</table>
+<pre id=mt></pre>
+<h3>Price calculator (illustrative)</h3>
+<form onsubmit="return calc(this)">
+cprod <input name=cprod type=number step=0.1 value=8 size=4> cproc <input name=cproc type=number step=0.1 value=0 size=4>
+cpack <input name=cpack type=number step=0.1 value=1 size=4> ctrans <input name=ctrans type=number step=0.1 value=0.5 size=4>
+cfees <input name=cfees type=number step=0.1 value=0.5 size=4> psale <input name=psale type=number step=0.1 value=12 size=4>
+qty_kg <input name=qty_kg type=number step=0.1 value=20 size=4><button>Calc</button></form><pre id=pr></pre>
+<h3>Orders</h3><table><tr><th>ID</th><th>Req</th><th>Total g</th><th>Status</th></tr>
+{% for o in orders %}<tr><td>{{o.id}}</td><td>{{o.request_id}}</td><td>{{o.total_g}}</td><td>{{o.status}}</td></tr>{% endfor %}</table>
+<script>async function mkReq(f){const d={};new FormData(f).forEach((v,k)=>d[k]=v);d.qty_need_g=parseInt(d.qty_need_g);d.max_price=parseFloat(d.max_price||9999);d.herb_type='rosemary';
+const r=await fetch('/api/requests',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});document.getElementById('rq').textContent=await r.text();return false;}
+async function matches(id){const r=await fetch('/api/requests/'+id+'/matches');document.getElementById('mt').textContent=await r.text();}
+async function calc(f){const d={};new FormData(f).forEach((v,k)=>d[k]=parseFloat(v)||0);
+const r=await fetch('/api/pricing/calc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});document.getElementById('pr').textContent=await r.text();return false;}</script>
+</body></html>

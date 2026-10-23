@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
+<title>Station — HER-GRADE</title><style>body{font-family:system-ui;max-width:720px;margin:24px auto;padding:0 16px}button{padding:10px 16px;margin:4px;font-size:16px}</style></head><body>
+<h2>Station — Mode A / B + E-stop</h2><p><a href="/">Home</a></p>
+<p class=mut>E-stop cuts motor power in hardware via relay. Software stop is NOT safety.</p>
+<div><button onclick="mode('A')">Mode A supervised</button><button onclick="mode('B')">Mode B unattended</button></div>
+<div><button onclick="stop()" style="background:#f66">STOP</button><button onclick="resume()">Resume</button><button onclick="estop()" style="background:#000;color:#fff">E-STOP</button></div>
+<pre id=out>loading…</pre>
+<script>async function j(u,m,b){const r=await fetch(u,{method:m||'GET',headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined});document.getElementById('out').textContent=await r.text();}
+async function mode(x){j('/api/station/mode','POST',{mode:x});}async function stop(){j('/api/station/stop','POST');}
+async function resume(){j('/api/station/resume','POST');}async function estop(){j('/api/station/estop','POST');}
+j('/api/station/status');setInterval(()=>j('/api/station/status'),2000);</script>
+</body></html>

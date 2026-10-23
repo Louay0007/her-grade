@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    ports: ["8000:8000"]
+    volumes: ["./data:/app/data", "./backups:/backups"]
+    env_file: [.env]
+  caddy:
+    image: caddy:2-alpine
+    ports: ["8080:80"]
+    volumes: ["./Caddyfile:/etc/caddy/Caddyfile"]
