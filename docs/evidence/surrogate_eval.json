@@ -1,0 +1,30 @@
+{
+  "data": "data/surrogate/test",
+  "model": "data/surrogate_baseline.pkl",
+  "n": 3,
+  "thresh": 0.75,
+  "acc": 0.6667,
+  "precision": [
+    0.6667,
+    0.0
+  ],
+  "recall": [
+    1.0,
+    0.0
+  ],
+  "confusion_matrix": [
+    [
+      2,
+      0
+    ],
+    [
+      1,
+      0
+    ]
+  ],
+  "false_accept_rate": 0.0,
+  "review_rate": 1.0,
+  "latency_ms_per_img": 1.01,
+  "claim_grade": false,
+  "note": "ONLY bench held-out is claim-grade; surrogate labeled ANALOGY"
+}

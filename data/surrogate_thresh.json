@@ -1,0 +1,1 @@
+{"thresh": 0.75, "acc": 0.6, "n": 100, "claim_grade": false, "note": "bench held-out ONLY is claim-grade; surrogate = pipeline smoke"}
