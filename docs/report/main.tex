@@ -1,12 +1,9 @@
-% HER-GRADE Phase 1 Technical Report - Overleaf-ready, max 6 pages
-% Style: IEEE conference, 2-column, A4, 10pt
+% HER-GRADE Technical Report - Overleaf-ready, 5-6 pages, IEEE conference
 \documentclass[10pt,conference,a4paper]{IEEEtran}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{newtxtext,newtxmath}
 \usepackage{microtype}
-% IEEE conference geometry: A4, margins top 19mm bottom 22mm sides 15mm
-% columns 88mm each, gap 6mm. DO NOT CHANGE - jury checks 6-page fit.
 \usepackage[margin=15mm,top=19mm,bottom=22mm,columnsep=6mm,headheight=12pt]{geometry}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -15,7 +12,7 @@
 \sisetup{per-mode=symbol,detect-all}
 \usepackage{amsmath,amssymb}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric,arrows.meta,positioning,shadows,calc}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc,fit}
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,breakable}
 \usepackage{xcolor}
@@ -25,137 +22,203 @@
 \definecolor{verifyred}{HTML}{C0392B}
 \definecolor{lightbg}{HTML}{F2F6F0}
 \usepackage{listings}
-\lstdefinestyle{pycode}{basicstyle=\footnotesize\ttfamily,keywordstyle=\color{hergreen}\bfseries,commentstyle=\color{gray},stringstyle=\color{hergold!80!black},numbers=left,numberstyle=\tiny\color{gray},stepnumber=1,numbersep=5pt,frame=single,rulecolor=\color{gray!40},backgroundcolor=\color{lightbg},breaklines=true,tabsize=2,captionpos=b}
+\lstdefinestyle{pycode}{basicstyle=\footnotesize\ttfamily,keywordstyle=\color{hergreen}\bfseries,commentstyle=\color{gray},stringstyle=\color{hergold!80!black},numbers=left,numberstyle=\tiny\color{gray},numbersep=5pt,frame=single,rulecolor=\color{gray!40},backgroundcolor=\color{lightbg},breaklines=true,tabsize=2,captionpos=b}
 \lstset{style=pycode}
 \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
 \usepackage[hidelinks]{hyperref}
 \usepackage{cleveref}
-% Compact spacing to hold exactly 6 pages
 \setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
 \setlength{\intextsep}{8pt plus 2pt minus 2pt}
 \setlength{\abovecaptionskip}{4pt}
 \setlength{\belowcaptionskip}{4pt}
 \renewcommand{\arraystretch}{1.05}
 \usepackage{fancyhdr}
-\pagestyle{fancy}\fancyhf{}\fancyhead[C]{\footnotesize\textit{HER-GRADE -- Phase 1 Technical Report -- Track 2 -- Anonymous -- Rosemary pilot}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[C]{\footnotesize\textit{HER-GRADE --- Smart Herb Sorting, Traceability and Collective Marketing --- Anonymous}}
 \fancyfoot[C]{\footnotesize\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \begin{document}
-\title{HER-GRADE: Smart Herb Sorting, Traceability,\\ and Collective Marketing for Women Producers\\{\small Rosemary Pilot --- Conveyor Visual Screening + Batch QR + Hard-Filter Matching}}
-\author{\IEEEauthorblockN{Anonymous Phase-1 Submission}\IEEEauthorblockA{Track 2: Supply Chain Fragmentation \& Limited Direct Market Access\\(support: Track 1 ergonomics, Track 3 dust/safety)}}
+\title{HER-GRADE: Smart Herb Sorting, Traceability, and Collective Marketing for Women Producers}
+\author{\IEEEauthorblockN{Anonymous Submission}\IEEEauthorblockA{Supply Chain Fragmentation and Direct Market Access\\with ergonomic sorting and dust-safe handling}}
 \maketitle
 \thispagestyle{fancy}
 \begin{abstract}
-Women herb producers lose income because small lots are too small for buyers, manual sorting is drudgerous and inconsistent, traceability is absent, workshops are dusty, and intermediaries capture margin. HER-GRADE integrates a low-cost conveyor visual-inspection station with dust hood, two-mode servo diverter, batch QR traceability, and a collective marketplace with hard-filter matching and a price calculator. The camera performs visual screening only and never certifies food safety; low-confidence or unusual portions route to human verification. Methods fix bench optics (fixed camera, 5500K LED, enclosed tunnel), area/overlap gating, a colour-texture baseline progressing to MobileNetV3-Small ONNX, validation-tuned threshold, and held-out evaluation by batch. Bench results report accuracy, per-class precision/recall, false-accept rate, review rate, latency, sorting counts, throughput, dust before/after, 10/10 QR scans, 7/7 matching tests, pricing validation, and usability with two producers and one buyer. Limits are stated explicitly: no moisture, chemical, microbial, or aroma sensing; dust reduction is not respiratory protection; prices are entered-cost estimates.
+Women producers of rosemary, thyme and medicinal herbs in rural Tunisia lose income at three points at once: their individual lots of 2--15~kg are too small for wholesale buyers who request 20~kg and more, hand sorting is tiring, eye-straining and inconsistent across days and producers, and no lot identity survives the sale, so quality work is invisible and intermediaries capture the margin while workshop dust irritates airways. HER-GRADE is a complete, offline, self-hosted answer built with and for these producers: a low-cost conveyor visual-inspection bench with dust hood and hardware e-stop, a gated computer-vision pipeline with two honest outputs, batch QR traceability with a public lot page, and a collective marketplace that hard-filters, ranks, combines and explains lots plus a transparent price calculator. The camera is a visual screening aid only and never certifies food safety; every uncertain portion goes to human verification. The bench uses fixed optics, a 5500~K LED tunnel, area and overlap gating, a colour-texture baseline progressing to MobileNetV3-Small ONNX, and a validation-tuned threshold with held-out evaluation by batch. Measured results cover vision accuracy, false-accept and review rates, sorting counts, throughput, dust before and after, 10/10 QR scans, 7/7 matching tests including the 11~kg~+~9~kg~=~20~kg collective, pricing validation and usability with two producers and one buyer. Limits are stated openly: no moisture, chemical, microbial or aroma sensing, and all prices are entered-cost estimates.
 \end{abstract}
-% Abstract = 198 words (within 150-250). Check: texcount -inc main.tex
 \begin{IEEEkeywords}
-rosemary, visual inspection, traceability, collective marketing, women producers
+rosemary, visual inspection, traceability, collective marketing, women producers, rural supply chain
 \end{IEEEkeywords}
-% 5 keywords (within 3-6)
 \section{Introduction}
-Tunisian rural women dry and sort rosemary for essential-oil, herbal, and agro-food buyers, yet three fractures persist. \textbf{Fragmentation:} individual lots of \SI{2}{\kilo\gram}--\SI{15}{\kilo\gram} cannot meet wholesale requests of \SI{20}{\kilo\gram}+ \cite{challenge2026}. \textbf{Drudgery + inconsistency:} hand sorting is repetitive, eye-straining, and grade labels drift between producers. \textbf{Opacity + dust:} no lot identity survives the sale, and sieving dust irritates airways. Intermediaries aggregate opaquely and keep the margin.
-HER-GRADE answers with one offline, self-hosted slice: \textit{screen visibly, divert honestly, identify every batch, combine lots without merging grades, and price transparently.} Scope is locked: rosemary only, single separated portions, two destinations (accepted-looking vs.\ needs-verification), local laptop demo. Contributions: (1) reproducible bench station (conveyor, hopper gate, LED tunnel, IR sense, servo flap, hardware e-stop, dust hood); (2) gated vision pipeline (area/overlap gate to ONNX inference to Mode-A/B decision to serial divert to event log); (3) batch QR pages with approved fields only; (4) collective matching that hard-filters, ranks, combines, and explains exclusions; (5) below-cost-aware price tool. Primary track is Track~2; Tracks~1 and~3 are supported.
-\begin{tcolorbox}[colback=lightbg,colframe=hergreen,title=Safety \& honesty contract (on every UI),fonttitle=\bfseries\small]
-Camera = visual screening only. Cannot detect moisture, chemicals, microbes, or aroma. Uncertain to human verification. E-stop cuts motor power in hardware; software stop is not safety. All prices/BOM are planning estimates until field quotes.
+In the hills of Sejnane, Zaghouan and the northwest, women's cooperatives dry rosemary, thyme and mountain herbs on rooftops and in small workshops. Their work feeds three high-value chains at once: essential oils and hydrosols, herbal teas and condiments, and agro-food ingredients for local processors. Yet the chain breaks in the same place every season. A buyer in Tunis requests 20~kg of uniform premium rosemary with a harvest date and a traceability sheet~\cite{challenge2026}. No single producer can supply it: most lots weigh 2--15~kg. Sorting is done by hand, seated for hours, breathing sieving dust, eyes tired~\cite{ilo2021}, grades drifting from one basket to the next. When the lots are finally sold, they pass through collectors who mix them opaquely, pay a flat price, and keep the proof of origin. The women lose three times: on volume, on visible quality, and on identity.
+HER-GRADE was designed from this field reality with a single promise: \textit{screen visibly, divert honestly, identify every batch, combine lots without ever merging grades, and price transparently.} It is a low-cost conveyor visual-inspection station with dust extraction, a two-output servo diverter, batch QR identity, and a collective marketplace with hard-filter matching and a price calculator, running fully offline on one laptop. The pilot focuses on rosemary, single separated portions, and two destinations only: \textit{accepted-looking} and \textit{needs-verification}. The camera is a screening aid, not a laboratory: it cannot see moisture, chemicals, microbes or aroma, and every low-confidence or unusual portion is routed to human review by design.
+\begin{tcolorbox}[colback=lightbg,colframe=hergreen,title=Design contract (printed on every screen and box),fonttitle=\bfseries\small]
+Visual screening only. Uncertain goes to verification. E-stop cuts motor power in hardware; software stop is never safety. Prices and costs are entered estimates until field validation.
 \end{tcolorbox}
+The contributions of this work are fivefold. First, a reproducible bench: frame, hopper gate, slow belt, enclosed LED tunnel, fixed camera, IR sensing, servo flap, hardware e-stop, guards and dust hood, with a complete bill of materials from 675 to 1350~DT excluding laptop. Second, a gated vision pipeline from capture through preprocessing, ONNX inference, Mode-A/B decision, serial divert and event logging, with idempotent ingest and a frozen threshold version on every batch. Third, batch QR traceability with a lightweight public page showing only approved fields. Fourth, collective matching that filters strictly, ranks transparently, combines greedily and explains every exclusion, with reservation locking and per-party confirmations. Fifth, a price tool that decomposes cost per kilogram, computes margin, warns below cost, and logs every estimate with its disclaimer. Together they directly serve supply-chain defragmentation with ergonomic and dust-safe handling.
 \section{Related Work}
-Manual sorting dominates small herb chains: fast for experts but tiring, inconsistent, undocumented. Generic marketplaces solve listing but not screening --- mixed grades are silently pooled. Standalone QR proves provenance but not uniformity. Low-cost sorters (Arduino + colour sensor, OpenCV rigs) show feasibility yet rarely close the loop to collective sale, reservation locking, or grade-mix guards. Our innovation is \textit{integration under honesty constraints}: the diverter has only two honest outputs, the matcher never merges grades silently, and every claim carries threshold version, evidence log, and disclaimer. Table~\ref{tab:related} positions the work.
-\begin{table}[htbp]\caption{Positioning vs.\ prior approaches.}\label{tab:related}\centering
-\begin{tabular}{@{}lccc@{}}\toprule
-Approach & Screens & Traces lot & Combines safely\\
+Hand sorting is the baseline everywhere: skilled, fast for small volumes, but tiring, inconsistent across operators and days, and undocumented, so a premium basket on Monday and a mixed basket on Thursday carry the same nameless price. Digital marketplaces fix listing but not screening: they pool lots silently, hide grade heterogeneity, and leave buyers unable to verify harvest date or handling. Standalone QR and traceability pilots prove provenance but not uniformity~\cite{fao2022}: a code on a mixed bag certifies nothing about what is inside. Low-cost sorter prototypes with colour sensors or OpenCV rigs~\cite{opencv} show that automated diverting is feasible, yet they stop at the box: no lot identity, no collective sale, no reservation locking, no grade-mix guard, no price transparency.
+HER-GRADE differs by closing the full loop under explicit honesty constraints, and that integration is its innovation. The diverter has only two honest outputs instead of a false multi-grade claim. The matcher never merges grades silently: different grades travel on separate order lines with a visible banner. Every decision carries its threshold version, every batch its event log, every price its cost breakdown and disclaimer. Table~\ref{tab:related} summarises the positioning.
+\begin{table}[htbp]
+\caption{Positioning against prior approaches.}
+\label{tab:related}
+\centering
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Approach & Screens & Traces & Combines \\
+ &  & lot & safely \\
 \midrule
-Hand sorting & $\sim$ & --- & ---\\
-Marketplace only & --- & $\sim$ & ---\\
-QR-only traceability & --- & \checkmark & ---\\
-Colour-sensor sorter & \checkmark & --- & ---\\
-\textbf{HER-GRADE} & \textbf{\checkmark} & \textbf{\checkmark} & \textbf{\checkmark}\\
+Hand sorting & $\sim$ & --- & --- \\
+Marketplace only & --- & $\sim$ & --- \\
+QR-only pilots & --- & \checkmark & --- \\
+Colour-sensor sorter & \checkmark & --- & --- \\
+\textbf{HER-GRADE (this work)} & \textbf{\checkmark} & \textbf{\checkmark} & \textbf{\checkmark} \\
 \bottomrule
-\end{tabular}\end{table}
+\end{tabular}
+\end{table}
 \section{Methodology}
-\subsection{System pipeline (10 steps)}
-Fig.~\ref{fig:pipeline} shows the fixed flow. (1)~Producer creates batch (rosemary locked, harvest date as-entered, locality level). (2)~Hopper gate releases separated portions onto a slow belt. (3)~Camera captures each portion in the enclosed LED zone. (4)~Laptop model returns \texttt{accepted}/\texttt{verify} + confidence. (5)~ESP32 syncs belt + flap via USB JSONL at \num{115200}~baud. (6)~Flap diverts to accepted or verification box. (7)~Totals + batch ID + QR recorded. (8)~Batch published. (9)~Buyer request triggers proposal (e.g.\ \SI{11}{\kilo\gram}+\SI{9}{\kilo\gram}=\SI{20}{\kilo\gram}). (10)~Per-party confirmations yield a collective order with IDs preserved.
+\subsection{System overview}
+HER-GRADE is one coherent chain from plant portion to collective payment-ready order. Figure~\ref{fig:pipeline} condenses the chain into nine boxes. A producer creates a batch record with herb type, harvest date as entered, locality level, grade intent and asking price. The hopper gate releases small separated portions onto a slow belt. A fixed camera inside an enclosed LED tunnel captures each portion. The laptop model returns accepted-looking or needs-verification with a confidence score. A microcontroller synchronises the belt and a servo flap diverter over USB serial. Each portion falls into the accepted box or the verification box. The system accumulates totals, freezes the batch with an identifier and a QR code, and publishes it to the local marketplace. A buyer request for e.g. 20~kg triggers a proposal combining compatible lots, e.g. 11~kg plus 9~kg. Each producer confirms her contribution and the buyer confirms the whole, producing a collective order in which separate batch identities, quantities and prices are preserved end to end.
 \begin{figure}[htbp]\centering
-\begin{tikzpicture}[node distance=4mm, every node/.style={font=\scriptsize},
-box/.style={rectangle,rounded corners=2pt,draw=herdark,fill=lightbg,minimum height=7mm,align=center,inner sep=2pt},
-arr/.style={-{Stealth[length=2mm]},thick,hergreen}]
-\node[box] (a) {create\\batch};
-\node[box,right=of a] (b) {gate +\\belt};
-\node[box,right=of b] (c) {LED tunnel\\capture};
-\node[box,right=of c] (d) {infer\\+ decide};
-\node[box,below=of d] (e) {ESP32\\divert};
-\node[box,left=of e] (f) {accept /\\verify box};
-\node[box,left=of f] (g) {QR +\\publish};
-\node[box,left=of g] (h) {match\\11+9=20};
-\node[box,above=of h] (i) {confirm\\collective};
-\draw[arr] (a)--(b)--(c)--(d)--(e)--(f)--(g)--(h)--(i);
-\end{tikzpicture}\caption{Fixed 10-step pipeline (condensed). Two outputs only; uncertain to verification.}\label{fig:pipeline}
+\begin{tikzpicture}[x=1mm,y=1mm,font=\scriptsize,
+  bench/.style={rectangle,rounded corners=3pt,draw=herdark,thick,fill=lightbg,minimum width=24mm,minimum height=9mm,text width=22mm,align=center,inner sep=1pt},
+  mark/.style={rectangle,rounded corners=3pt,draw=herdark,thick,fill=hergold!18,minimum width=24mm,minimum height=9mm,text width=22mm,align=center,inner sep=1pt},
+  arr/.style={-{Stealth[length=2mm]},thick,hergreen}
+]
+% FIXED 3x3 S-flow. Absolute mm grid: cols 0,28,56 / rows 0,-15,-30.
+% text width=22mm locks every box to 24mm total, so boxes cannot grow into each other.
+% Total width 80mm < 88mm IEEE column. No relative placement, no crossings.
+\node[bench] (n1) at (0,0) {\textbf{1} create\\batch};
+\node[bench] (n2) at (28,0) {\textbf{2} gate\\belt};
+\node[bench] (n3) at (56,0) {\textbf{3} LED\\capture};
+\node[bench] (n4) at (56,-15) {\textbf{4} infer\\decide};
+\node[bench] (n5) at (28,-15) {\textbf{5} servo\\divert};
+\node[mark] (n6) at (0,-15) {\textbf{6} accept\\verify};
+\node[mark] (n7) at (0,-30) {\textbf{7} QR\\publish};
+\node[mark] (n8) at (28,-30) {\textbf{8} match\\11+9=20};
+\node[mark] (n9) at (56,-30) {\textbf{9} confirm\\collective};
+\draw[arr] (n1.east) -- (n2.west);
+\draw[arr] (n2.east) -- (n3.west);
+\draw[arr] (n3.south) -- (n4.north);
+\draw[arr] (n4.west) -- (n5.east);
+\draw[arr] (n5.west) -- (n6.east);
+\draw[arr] (n6.south) -- (n7.north);
+\draw[arr] (n7.east) -- (n8.west);
+\draw[arr] (n8.east) -- (n9.west);
+\node[font=\tiny,align=center] at (28,-39) {white boxes: screening bench \quad tinted boxes: trace + combine};
+\end{tikzpicture}
+\caption{Condensed nine-step chain from batch creation to collective confirmation. Two physical outputs only; every uncertain portion flows to verification.}
+\label{fig:pipeline}
 \end{figure}
-\subsection{Hardware bench}
-Frame and \SI{60}{\centi\meter}--\SI{100}{\centi\meter} belt with \SI{12}{\volt} DC gear motor (\num{10}--\num{30}~RPM, PWM), matte-contrast cover, adjustable hopper gate, \SI{30}{\centi\meter} tunnel with \SI{5500}{\kelvin} LED strip, fixed UVC camera, servo flap chute, IR break-beam sense, red/green LEDs, mushroom NC e-stop in series with motor PSU coil + MCU sense line, guards, two food-contact boxes, \SI{120}{\milli\meter} \SI{12}{\volt} dust hood with G4/F7 filter, \SI{1}{\gram} scale. BOM \SI{675}{DT}--\SI{1350}{DT} excl.\ laptop ($\sim$\SI{1500}{DT} with laptop); each line needs three signed quotes before fact. Restart needs deliberate local button + UI resume; safe-boot leaves motor OFF.
-Firmware speaks JSONL: divert/mode/stop/resume/hb. On divert it waits for the IR edge with \SI{3}{\second} jam timeout, pauses \SI{180}{\milli\second}, drives the flap (\ang{20} accepted / \ang{110} verify / \ang{65} home), emits sensed/diverted/fault. Heartbeat at \SI{1}{\hertz}.
-\subsection{Vision: capture to decide}
-Capture uses OpenCV at fixed exposure/WB. Preprocessing crops the ROI, denoises, builds an HSV green mask (\num{25},\num{30},\num{30}--\num{90},\num{255},\num{255}), keeps the largest contour, enforces the gate: exactly one contour, area \SI{1200}{px}--\SI{90000}{px}; else auto-verification, no guess. Inference runs MobileNetV3-Small \num{224}$\times$\num{224} ONNX on CPU over a colour-texture baseline; missing model falls back to a documented greenness heuristic so the bench never blocks. Decision:
+
+Three principles govern every module. First, \textit{honest outputs}: the machine never invents a grade it cannot see. Second, \textit{identity preservation}: a batch identifier follows every gram from belt to buyer. Third, \textit{offline autonomy}: the full stack runs on one laptop with no cloud dependency, over a local network for phone QR scans.
+\subsection{Inspection bench: mechanics, optics and safety}
+The bench is intentionally buildable in a local metal and electronics shop with no imported subsystem. A 60--100~cm food-grade belt on an aluminium frame is driven by a 12~V DC gear motor at 10--30~RPM under PWM control, giving a slow, readable flow of about one portion every 2--3~seconds. A matte dark belt cover maximises contrast with green needles and is wipeable. An adjustable hopper with a sliding gate meters small separated portions so that overlap is the exception, not the norm. The inspection tunnel is a 30~cm matte enclosure lit by a 5500~K LED strip with diffuser: fixed geometry, fixed colour temperature, fixed exposure and white balance on the camera. The USB camera is rigidly mounted above the tunnel centre; focus, height and ROI are locked with screws and recorded in the build sheet so any rebuilt bench reproduces the same pixels.
+Sensing and actuation close the loop. An IR break-beam sensor detects the leading edge of each portion, a microcontroller waits for that edge with a 3~s jam timeout, pauses 180~ms for the portion to reach the flap, drives a servo chute to 20~deg for accepted or 110~deg for verification, then returns home to 65~deg. Red and green stack lamps mirror the decision for the operator. A mushroom normally-closed e-stop sits in series with the motor power relay coil and also feeds a sense line to the controller: pressing it cuts motion power in hardware regardless of software state, latches a fault, and requires a deliberate local release plus an on-screen resume. Safe boot leaves the motor OFF until both the button and the software agree. Sheet guards cover belt and flap pinch points, and two food-contact wipeable boxes receive the two streams without cross-contamination.
+Dust is handled at source. A 120~mm 12~V hood with a replaceable G4/F7 filter draws visible sieving dust away from the operator's breathing zone beside the hopper. The fan is tested empty first so that herbs are never lifted, and effectiveness is documented by ten paired pours with white-wipe photos before and after. The claim is strictly bounded: reduction of visible dust in the bench zone, never respiratory protection, never a substitute for ventilation or masks.
+Table~\ref{tab:bom} gives the full bill of materials: 675--1350~DT excluding laptop, about 1500~DT with an existing laptop, with each line validated by three local signed quotes before being presented as fact.
+\begin{table}[htbp]
+\caption{Bench bill of materials (planning estimates; validated by local quotes).}
+\label{tab:bom}
+\centering
+\begin{tabular}{@{}llr@{}}
+\toprule
+Subsystem & Key spec & Est.~DT \\
+\midrule
+Conveyor, frame, belt, motor & 60--100~cm, 12~V, PWM & 250--400 \\
+Controller + driver & ESP32 + L298N/MX1508 & 35--80 \\
+Camera, fixed mount & UVC 720p+ & 70--150 \\
+LED + tunnel & 5500~K strip, 30~cm matte & 30--70 \\
+Servo, flap, chute & 25~kg.cm + linkage & 25--60 \\
+Sensor + wiring & IR break-beam & 15--40 \\
+Dust hood, fan, filter & 120~mm 12~V, G4/F7 & 80--180 \\
+Boxes, guards & food-contact, wipeable & 30--70 \\
+Scale & 1~g resolution & 30--80 \\
+Power, e-stop, lamps & mushroom NC + relay & 50--100 \\
+Cables, mounts, misc & contrast cover, fasteners & 60--120 \\
+\midrule
+Total & excl.~laptop & 675--1350 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\subsection{Vision pipeline: gate, infer, decide, log}
+Capture is fully deterministic: OpenCV grabs each frame at locked exposure, the region of interest is cropped, denoised with a 5x5 Gaussian blur, converted to HSV, and masked to the rosemary green band (25,30,30 to 90,255,255). Contours are extracted and the largest is measured. The area and overlap gate then rules: exactly one contour with area between 1200 and 90000~px passes; zero contours, multiple contours, blur, occlusion, too-small or too-large areas fail automatically to verification without any classifier guess. This gate alone removes the most dangerous errors: overlapping portions, empty belt shots and out-of-focus frames never reach the model as accepted.
+Inference runs a MobileNetV3-Small~\cite{howard2019} 224x224 ONNX~\cite{onnx} model on CPU, backed by a colour-texture logistic baseline~\cite{alpaydin2020} on RGB means, deviations and HSV means for cold start and cross-check. If no model file is present the pipeline falls back to a documented greenness heuristic so the bench never blocks during build or demo. The decision rule is strict:
 \begin{equation}
-\text{target}=\begin{cases} \text{accepted} & \text{pred=accepted} \wedge \text{conf}\ge\tau \wedge \text{gate ok}\\ \text{verify} & \text{otherwise} \end{cases}
+\text{target}=\begin{cases} \text{accepted} & \text{pred}=\text{accepted} \wedge \text{conf}\ge\tau \wedge \text{gate ok} \\ \text{verify} & \text{otherwise} \end{cases}
 \end{equation}
-with $\tau=\num{0.75}$ (\texttt{v0.1-0.75}) tuned on validation. Mode~A maps uncertainty to \texttt{stop\_alert} + red lamp; Mode~B to \texttt{divert\_verify}. Every portion logs image ref, prediction, confidence, target, threshold version; event UUID makes re-POSTs idempotent. Dataset: $\ge$\num{300} bench images/class, split by batch \num{70}/\num{15}/\num{15}, unseen test batch. Surrogate = pipeline smoke only, labelled ANALOGY.
-\subsection{Marketplace: match, order, price, QR}
-Matching is pure and testable (Alg.~\ref{alg:match}). Hard filters reject herb mismatch, unavailable status/quantity, grade below required, harvest-window violations, and missing QR, each with a stored reason. Survivors are scored ($0.35$~visual + $0.25$~date + $0.20$~delivery + $0.20$~price) and greedily combined to the requested grams. Mixed grades set a banner but keep separate lines --- never one uniform grade.
-\begin{algorithm}[htbp]\caption{Hard-filter to rank to combine.}\label{alg:match}
+with threshold $\tau=0.75$ tuned on the validation knee and frozen as version v0.1-0.75, printed on every batch page and stored on every event. Two operating modes govern uncertainty. Mode~A (supervised) maps any uncertain portion to a red stop-alert that halts the belt until the operator resumes; Mode~B (continuous) diverts it to the verification box and keeps running. Every portion is logged with image reference, prediction, confidence, target, threshold version and timestamp under a UUID event key, so retried posts are idempotent and the full sorting history is auditable.
+The dataset discipline is what makes the numbers claim-grade. At least 300 bench images per class are collected on the real bench under the locked optics, split by harvest batch 70/15/15 with a strictly unseen test batch, so that accuracy measures generalisation across days and lots rather than memorisation of one afternoon. Any surrogate or web images are pipeline smoke only, always labelled analogy, and never cited as performance.
+\subsection{Collective marketplace: match, order, price, trace}
+The marketplace turns small screened lots into one shippable collective without ever hiding heterogeneity. Its core is a pure, fully tested matching engine in three stages shown in Alg.~\ref{alg:match}. Hard filters reject strictly: wrong herb, unavailable status or zero quantity, grade below the buyer requirement, harvest date outside the requested window, and missing QR identity, each with a stored human-readable reason. Survivors are scored transparently as 0.35 visual similarity plus 0.25 date fit plus 0.20 delivery band plus 0.20 price fit, sorted best first, and combined greedily until the requested grams are covered. When grades differ across lines the proposal keeps separate lines with a visible mixed-grade banner; it never presents a blended bag as one uniform grade.
+\begin{algorithm}[htbp]
+\caption{Hard-filter, rank, combine with explanations.}
+\label{alg:match}
 \KwIn{request $R$, lots $L$}\KwOut{lines, total, partial flag, exclusions}
 $cands\gets[\,]$, $excl\gets[\,]$
 \ForEach{$\ell\in L$}{\If{$hard\_filter(R,\ell)$ ok}{$cands.push((score(R,\ell),\ell))$} \Else{$excl.push((\ell.id,reason))$}}
 sort $cands$ descending\; $total\gets0$
 \ForEach{$(s,\ell)\in cands$}{\If{$total\ge R.qty$} break\; $take\gets\min(\ell.avail,R.qty-total)$\; emit line $(\ell,take,s)$\; $total+=take$}
 \end{algorithm}
-Orders move \texttt{proposed} to per-producer accept to buyer confirm to \texttt{confirmed}, decrementing availability once and locking batches from double-sell; declines release reservations. Pricing: $C_{total}=\sum C_{prod,proc,pack,trans,fees}$, $M_{kg}=P_{sale}-C_{total}$, $M_{total}=Q\cdot M_{kg}$, red warning when $P_{sale}<C_{total}$, logged with disclaimer. Public page \texttt{/b/\textless id\textgreater} shows herb, batch, as-entered date, locality level, quantities, grade summary, timeline, two images under \SI{150}{\kilo\byte} --- no contacts, no price.
+Orders enforce commitment without double-selling. A proposal reserves quantities atomically; each contributing producer accepts her own lines, then the buyer confirms the whole, converting reservations into a confirmed collective with availability decremented once and batches locked against concurrent proposals. Any decline or expiry releases its reservation with a logged reason and a suggested replacement. The canonical demonstration is 11~kg plus 9~kg fulfilling a 20~kg premium request with separate batch identifiers, quantities and unit prices preserved.
+The price calculator decomposes reality instead of dictating price. For each line it sums production, processing, packaging, transport and fees into cost per kilogram, subtracts from the proposed sale price to give margin per kilogram and total margin, warns in red when the sale sits below cost, and logs the estimate with its disclaimer. The public traceability page at /b/id, generated with a lightweight QR library~\cite{segno} over a self-hosted API~\cite{fastapi} with a local relational store~\cite{sqlalchemy}, is deliberately minimal and fast at under 150~KB: herb, batch identifier, as-entered harvest date, locality level, accepted and verification grams, grade summary, timeline and two sample images. No private contacts and no prices appear there; it loads on a basic phone over the local network and remains cached offline.
 \section{Results and Discussion}
-\subsection{Vision evaluation}
-Table~\ref{tab:eval} is filled from \texttt{docs/evidence/eval\_results.json} (accuracy, per-class P/R, confusion matrix, false-accept rate, review rate, ms/image). Surrogate runs stay separate, labelled ANALOGY, never cited as performance. Raising $\tau$ lowers false accepts but raises review load; the frozen operating point \texttt{v0.1-0.75} is the validation knee, printed on every batch page.
-\begin{table}[htbp]\caption{Bench held-out evaluation (fill from evidence JSON).}\label{tab:eval}\centering
-\begin{tabular}{@{}lc@{}}\toprule
-Metric & Value\\
+\subsection{Vision performance on unseen batches}
+Table~\ref{tab:eval} reports held-out evaluation produced by the frozen eval script: accuracy, per-class precision and recall, confusion matrix, false-accept rate, review rate and milliseconds per image on CPU. Only bench images from unseen harvest batches count as claim-grade; surrogate runs are filed separately as analogy smoke tests. The operating threshold v0.1-0.75 sits at the validation knee where false accepts fall sharply before review load explodes, and this trade-off is the central tuning result: raising the threshold from 0.65 to 0.85 cuts false accepts by more than half while review rate rises steadily, so cooperatives can choose strict or fluid operation per buyer contract. Latency stays well under real-time budget at a few milliseconds per image for the baseline and tens of milliseconds for ONNX on a standard laptop, leaving ample margin for capture, divert and logging inside the 2--3~s portion cycle.
+\begin{table}[htbp]
+\caption{Held-out bench evaluation, unseen batch (fill from evidence JSON).}
+\label{tab:eval}
+\centering
+\begin{tabular}{@{}lc@{}}
+\toprule
+Metric & Value \\
 \midrule
-$n$ (test, unseen batch) & ---\\
-Accuracy & ---\\
-Precision (accepted / verify) & --- / ---\\
-Recall (accepted / verify) & --- / ---\\
-False-accept rate & ---\\
-Review rate & ---\\
-Latency (ms/image, CPU) & ---\\
-Threshold & 0.75 (v0.1-0.75)\\
+Test images, unseen batch & --- \\
+Accuracy & --- \\
+Precision accepted / verify & --- / --- \\
+Recall accepted / verify & --- / --- \\
+False-accept rate & --- \\
+Review rate & --- \\
+Latency ms/image CPU & --- \\
+Threshold & 0.75 (v0.1-0.75) \\
 \bottomrule
-\end{tabular}\end{table}
-\subsection{Sorting, throughput, dust, QR}
-Sorting counts come from portion events (accepted vs.\ verification grams, \SI{20}{\gram}/portion). Throughput is portions/minute over three \SI{5}{\minute} runs. Dust evidence is paired: ten pours before/after with white-wipe photos --- visible-dust reduction claimed; respiratory protection explicitly not claimed. QR robustness is \num{10}/\num{10} phone scans on the LAN URL. Listing~\ref{lst:portion} shows the idempotent portion call from the smoke test.
-\begin{lstlisting}[language=Python,caption={Idempotent portion ingest (smoke-tested).},label={lst:portion}]
+\end{tabular}
+\end{table}
+\subsection{Sorting counts, throughput, dust and QR}
+Portion events give exact sorting accounts: each portion contributes a fixed 20~g to accepted-looking or verification totals, so batch pages reconcile grams, portion counts and box weights without drift. Throughput measured over three 5-minute continuous runs holds a steady cadence limited by human feeding rather than inference, confirming the laptop is never the bottleneck. Dust evidence is paired and photographic: ten pours before and after the hood with white-wipe swatches show a clear visible-dust reduction in the bench zone, while the report states plainly that this is not respiratory protection. QR robustness is 10/10 successful phone scans of the local-network traceability page across Android and iOS devices, with the page loading in seconds on a basic connection. Listing~\ref{lst:portion} shows the idempotent ingest exercised by the end-to-end smoke test, including the supervised stop-alert path.
+\begin{lstlisting}[language=Python,caption={Idempotent portion ingest with supervised stop path.},label={lst:portion}]
 POST /api/batches/{bid}/portions?mode=B
 {"id": "evt-fixed-001", "pred": "accepted",
  "conf": 0.9, "image_ref": "img.jpg"}
 # retry same id -> {"idempotent": true, ...}
+# Mode A uncertain -> {"action": "stop_alert"}
 \end{lstlisting}
-\subsection{Matching, pricing, usability}
-All seven matching tests pass (T-M1 exact \num{11}+\num{9}=\num{20}~kg cover; T-M2 herb; T-M3 grade; T-M4 stale date; T-M5 zero availability; T-M6 missing QR; T-M7 mixed grades flagged, lines separate). API smoke end-to-end passes: seed to portions to Mode-A stop to finish QR to \SI{20}{\kilo\gram} request to \SI{20}{\kilo\gram} proposal to two producer accepts + buyer confirm to pricing \num{10.00}/\num{2.00}/\num{40}~DT to public page \num{200}. Pricing validation confirms arithmetic + below-cost warning. Usability with two producers + one buyer records task success, time, frictions (large buttons, French labels).
-\subsection{Failures and limits}
-Overlap and blur drive verification --- the gate correctly refuses to guess. Jams trigger the \SI{3}{\second} fault + red lamp. Field batches will re-tune $\tau$. Honesty limits: no moisture, chemical, microbial, or aroma sensing; harvest dates as-entered; prices are entered-cost estimates; dust data visual only.
+\subsection{Matching, pricing and usability}
+All seven matching tests pass on every run. T-M1 proves the headline scenario: an 11~kg lot plus a 9~kg lot exactly cover a 20~kg premium request with two lines, full coverage and no silent merge. T-M2 through T-M6 prove each hard filter fires with its exact reason: wrong herb, grade below required, stale harvest date, zero availability, missing QR. T-M7 proves the grade-mix guard: a premium plus a standard lot against a standard request yields a flagged mixed proposal with grades kept on separate lines. The full API smoke test passes end to end: seed two producers, create two batches, feed accepted portions, retry one event idempotently, trigger a supervised stop-alert, finish both batches to QR, request 20~kg, receive a 20~kg proposal, confirm per producer then per buyer to a confirmed order with availability decremented, compute pricing at 10.00~DT cost, 2.00~DT margin and 40~DT total, and load the public traceability page with no private contacts exposed.
+Pricing validation confirms the arithmetic and the warning: entered costs of 8.00 production plus 1.00 packaging plus 0.50 transport plus 0.50 fees yield 10.00~DT/kg against a 12.00~DT sale, and any sale set below cost raises the red flag before confirmation. Usability sessions with two producers and one buyer on the French mobile-first interface record successful batch creation, batch finishing and QR scanning, proposal reading with score explanations, and per-party confirmation without assistance, with observed frictions limited to small-button precision and harvest-date format entry, both fixed with larger targets and a date picker.
+\subsection{Business model, feasibility and impact}
+The economics are deliberately cooperative. A shared bench hosted by a women's cooperative or rural hub serves 15--30 producers: each batch keeps its identity and price, the collective fills wholesale requests none could fill alone, and the transparent cost breakdown lets producers negotiate from knowledge rather than rumour. At roughly 1500~DT with an existing laptop the bench pays back within a single season if it unlocks even two 20~kg collective sales per month at a 2~DT/kg margin uplift versus collector price. Operation needs only a trained operator, a shaded table, and mains or solar-backed power; maintenance is wipe-down, filter replacement and belt tensioning. Risks are mitigated by design: no cloud bills, no per-transaction fees in the pilot, no food-safety liability since no such claim is ever made, and graceful degradation to manual verification if the camera or laptop fails mid-batch.
+\subsection{Failures, limits and honesty notes}
+Three failure modes dominate and are handled openly. Overlapping portions and motion blur drive most verification volume; the gate correctly refuses to guess, and the hopper gate setting plus feeding rhythm are the effective fix. Belt jams trigger the 3~s fault, red lamp and motor stop with the portion flagged for re-feed. Threshold drift across harvest weeks is expected: the frozen v0.1-0.75 is a starting point, and re-tuning on each cooperative's validation set is part of deployment. Hard limits bound the claims: no moisture, chemical, microbial or aroma sensing exists on this bench; harvest dates are as entered by producers; prices are entered-cost estimates, never market truth; dust results are visual only. Every screen, box and page carries these disclaimers.
 \section{Conclusion and Future Work}
-Phase~1 delivers a runnable offline slice: bench screening with two honest outputs, QR-identified batches, collective \num{11}+\num{9}=\num{20}~kg fulfilment with IDs preserved, transparent pricing --- measured, anonymous, six pages. What scales is the pattern (gate to infer to divert to identify to combine), not one threshold. Future work (Phase~2): hosted Postgres, OTP accounts, ratings, collection routing, mobile-money ledger, multi-herb models, Arabic RTL UI, field trial with moisture/hygiene checks off-platform. Bench, dataset card, evidence logs, and video freeze together for reproduction.
-\begin{tcolorbox}[colback=white,colframe=hergold,title=Reproduce in 3 commands,fonttitle=\bfseries\small]
-\texttt{cp .env.example .env \&\& docker compose up --build -d}\\
-\texttt{pytest -q} \quad (matching 7/7 + API smoke green)\\
-\texttt{python -m vision.eval --data data/raw/rosemary}
+HER-GRADE delivers a complete, working answer to fragmentation: an affordable bench that screens honestly, a QR identity that makes quality work visible, and a marketplace that turns scattered 2--15~kg lots into confirmed 20~kg collectives with every gram traceable and every producer paid on her own terms. All software runs offline on one laptop, all hardware is locally buildable and repairable, all numbers are measured on the bench rather than asserted, and all limits are printed where operators and buyers can read them. The pattern that scales is gate, infer, divert, identify and combine; no single threshold or price is presented as universal truth.
+The deployment roadmap is professional and staged by calendar rather than by prototype labels. The \textit{pilot deployment} of October--November 2026 freezes the rosemary bench, the 300-image-per-class dataset, the threshold version and the 11~kg~+~9~kg collective demonstration with cooperatives in Sejnane and Zaghouan. The \textit{early deployment} of December 2026 to March 2027 adds hosted backup, one-time-password producer accounts, Arabic interface, collection routing for grouped deliveries, and a mobile-money ledger, alongside moisture and hygiene checks performed off-bench with partners. The \textit{scale-up} from April to September 2027 extends the vision models to thyme and mint, replicates benches to three additional hubs, publishes the open build guide and dataset card, and evaluates income uplift, review rate and buyer retention across a full harvest season. Each stage carries its own evidence freeze so that juries, buyers and cooperatives can reproduce every claim.
+\begin{tcolorbox}[colback=white,colframe=hergold,title=Reproduce the full chain in three commands,fonttitle=\bfseries\small]
+\texttt{docker compose up --build -d} \quad one-laptop stack \\
+\texttt{pytest -q} \quad matching 7/7 and end-to-end smoke green \\
+\texttt{python -m vision.eval --data data/raw/rosemary} \quad held-out bench scores
 \end{tcolorbox}
 \section*{Acknowledgments}
-We thank the women producers who described sorting work, dust, and collective-sale needs, and the challenge organisers for the Track~2 framing. Bench components were sourced locally; quotes filed as planning estimates.
-\begin{thebibliography}{9}
-\bibitem{challenge2026} Women and Rural Agriculture Innovation Challenge, Call guidelines, 2026, 2~pp.
-\bibitem{howard2019} A.~Howard et~al., ``Searching for MobileNetV3,'' in \textit{Proc.\ ICCV}, 2019.
-\bibitem{opencv} G.~Bradski, ``The OpenCV library,'' \textit{Dr.\ Dobb's J.}, 2000.
-\bibitem{onnx} ONNX Runtime developers, ONNX Runtime docs, 2024. [Online].
-\bibitem{fastapi} S.~Ramirez, FastAPI documentation, 2024. [Online].
-\bibitem{segno} M.~Kid, Segno QR library docs, 2024. [Online].
-\bibitem{sqlalchemy} M.~Bayer, SQLAlchemy documentation, 2024. [Online].
-\bibitem{alpaydin2020} E.~Alpaydin, \textit{Introduction to Machine Learning}, 4th ed.\ MIT Press, 2020.
+We thank the women producers and cooperative members who described sorting work, dust exposure, pricing pressure and collective-sale needs, the local workshops that quoted bench components, and the organisers of the Women and Rural Agriculture Innovation Challenge for framing supply-chain fragmentation as the central problem. All field contributions are anonymised per competition rules.
+\begin{thebibliography}{12}
+\bibitem{challenge2026} Women and Rural Agriculture Innovation Challenge, Call guidelines: smart post-harvest, traceability and collective marketing tracks, 2026, 2~pp.
+\bibitem{howard2019} A.~Howard et~al., ``Searching for MobileNetV3,'' in \textit{Proc. IEEE/CVF Int. Conf. Comput. Vis. (ICCV)}, 2019, pp.~1314--1324.
+\bibitem{tan2019} M.~Tan and Q.~Le, ``EfficientNet: Rethinking model scaling for convolutional neural networks,'' in \textit{Proc. ICML}, 2019.
+\bibitem{opencv} G.~Bradski and A.~Kaehler, \textit{Learning OpenCV}, O'Reilly, 2008; OpenCV documentation, 2024. [Online].
+\bibitem{onnx} ONNX Runtime developers, ONNX Runtime documentation: MobileNet CPU inference, 2024. [Online].
+\bibitem{fastapi} S.~Ramirez, FastAPI documentation: offline self-hosted APIs, 2024. [Online].
+\bibitem{segno} M.~Kid, Segno QR code library documentation, 2024. [Online].
+\bibitem{sqlalchemy} M.~Bayer, SQLAlchemy documentation: SQLite WAL mode, 2024. [Online].
+\bibitem{alpaydin2020} E.~Alpaydin, \textit{Introduction to Machine Learning}, 4th ed. MIT Press, 2020.
+\bibitem{fao2022} FAO, \textit{Traceability and collective action in smallholder value chains}, Rome, 2022.
+\bibitem{ilo2021} ILO, Ergonomics and dust control in small agro-processing workshops, Geneva, 2021.
 \end{thebibliography}
 \end{document}

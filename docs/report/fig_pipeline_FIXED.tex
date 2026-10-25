@@ -1,0 +1,32 @@
+% PASTE THIS OVER Fig.1 in main.tex (replaces old snake layout)
+% Fixed 3x3 S-flow: absolute mm grid, no overlaps, fits 87mm column
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[x=1mm,y=1mm,font=\scriptsize,
+  bench/.style={rectangle,rounded corners=3pt,draw=herdark,thick,fill=lightbg,minimum width=24mm,minimum height=9mm,align=center,inner sep=1.5pt},
+  mark/.style={rectangle,rounded corners=3pt,draw=herdark,thick,fill=hergold!18,minimum width=24mm,minimum height=9mm,align=center,inner sep=1.5pt},
+  arr/.style={-{Stealth[length=2mm]},thick,hergreen}
+]
+% 3x3 S-flow on absolute mm grid. Cols x=0,27,54. Rows y=0,-15,-30.
+% Width 78mm < 87mm column. Fixed coords = overlap impossible.
+\node[bench] (n1) at (0,0) {\textbf{1} create\\batch};
+\node[bench] (n2) at (27,0) {\textbf{2} gate\\belt};
+\node[bench] (n3) at (54,0) {\textbf{3} LED\\capture};
+\node[bench] (n4) at (54,-15) {\textbf{4} infer\\decide};
+\node[bench] (n5) at (27,-15) {\textbf{5} servo\\divert};
+\node[mark] (n6) at (0,-15) {\textbf{6} accept\\verify};
+\node[mark] (n7) at (0,-30) {\textbf{7} QR\\publish};
+\node[mark] (n8) at (27,-30) {\textbf{8} match\\11+9=20};
+\node[mark] (n9) at (54,-30) {\textbf{9} confirm\\collective};
+\draw[arr] (n1.east) -- (n2.west);
+\draw[arr] (n2.east) -- (n3.west);
+\draw[arr] (n3.south) -- (n4.north);
+\draw[arr] (n4.west) -- (n5.east);
+\draw[arr] (n5.west) -- (n6.east);
+\draw[arr] (n6.south) -- (n7.north);
+\draw[arr] (n7.east) -- (n8.west);
+\draw[arr] (n8.east) -- (n9.west);
+\node[font=\tiny,align=center] at (27,-39) {white: screening bench \quad tinted: trace + combine};
+\end{tikzpicture}
+\caption{Condensed nine-step chain from batch creation to collective confirmation. Two physical outputs only; every uncertain portion flows to verification.}
+\label{fig:pipeline}
+\end{figure}

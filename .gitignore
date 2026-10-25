@@ -1,14 +1,36 @@
+# Python
 __pycache__/
 *.pyc
+*.pyo
 .venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Env / secrets
 .env
+.env.local
+
+# Generated runtime (do NOT commit)
 data/batches/*
 !data/batches/.gitkeep
 data/*.sqlite3*
 data/*.db*
+data/*.sqlite3-journal
+data/*.sqlite3-wal
+data/*.sqlite3-shm
 backups/*
 !backups/.gitkeep
+
+# Large model artifacts (rebuild via make train-*)
 *.onnx
 *.pt
+*.pth
+*.bin
+
+# OS / editor
 .DS_Store
- labeling/
+Thumbs.db
+.vscode/
+.idea/
+labeling/
